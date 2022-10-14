@@ -7,7 +7,7 @@
     flex-wrap: wrap;
 }
 
-.imgForca {
+.imgHangman {
     height: 360px;
     width: 400px;
 }
@@ -34,4 +34,21 @@
     justify-content: space-evenly;
     align-items: center;
     flex-wrap: wrap;
+}
+
+.optionLetter {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-right: 7px;
+    padding-left: 7px;
+
+    font-size: 1.5em;
+    font-family:'Gill Sans';
+    background-color: #fafafa;
+    border-radius: 10%;
+    border-width: 1px;
+}
+
+.wrongLetter {
+    color: red;
 }

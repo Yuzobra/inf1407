@@ -38,7 +38,7 @@ function resetGame() {
 }
 
 function updateLifeImage() {
-    const imgElement = document.getElementById("imgForca");
+    const imgElement = document.getElementById("imgHangman");
     imgElement.src = "imagens/img_" + livesRemaining + ".jpg"
 }
 
@@ -61,7 +61,7 @@ function generateHiddenLetters(word) {
     for (var i = 0; i < word.length; i++) {
         const letter = word.charAt(i);
         const letterElement = document.createElement("div");
-        letterElement.class = "hiddenLetter";
+        letterElement.className = "hiddenLetter";
         letterElement.id = "hiddenLetter_" + i;
 
         if (foundLetters.includes(i)) {
@@ -82,7 +82,7 @@ function generateOptionLetters() {
         const optionLetter = document.createElement("button");
         optionLetter.innerHTML = LETTERS[i];
         optionLetter.name = LETTERS[i];
-        optionLetter.class = "optionLetter";
+        optionLetter.className = "optionLetter";
         optionLetter.id = "optionLetter_" + LETTERS[i];
         optionLetter.onclick = onOptionLetterPress;
 
@@ -125,6 +125,16 @@ function updateHiddenWord() {
     }
 }
 
+function revealWord() {
+    for (let i = 0; i < word.length; i++) {
+        if(!foundLetters.includes(i)) {
+            const hiddenLetter = document.getElementById("hiddenLetter_" + i);
+            hiddenLetter.classList.add("wrongLetter");
+            hiddenLetter.innerHTML = word.charAt(i);
+        }
+    }
+}
+
 function loseLifePoint() {
     livesRemaining -= 1;
     updateLifeImage();
@@ -132,7 +142,7 @@ function loseLifePoint() {
 
 function checkVictory() {
     setTimeout(() => {
-        // wait image and letters to update
+        // wait hidden letters to update
         if (foundLetters.length == word.length) {
             alert("Você venceu");
             resetGame();
@@ -141,11 +151,12 @@ function checkVictory() {
 }
 
 function checkDefeat() {
-    setTimeout(() => {
-        // wait image and letters to update
-        if (livesRemaining == 0) {
+    if (livesRemaining == 0) {
+        revealWord();
+        setTimeout(() => {
+        // wait image to update
             alert("Você perdeu");
             resetGame();
-        }
-    }, 10);
+        }, 100);
+    }
 }
